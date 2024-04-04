@@ -1,33 +1,14 @@
-import Web3 from 'web3';
+async function testSendEth() {
+  myAddress = '0xA52A57E67f2BbAe57682c8610A4AdC068812f906';
+  toAddress = '0x89056eAD055cA3A4157e2A71da6f3362E59dAdB5';
+  privateKey = '09dc1fad3586eb6d224778d278742bf9ca937070317f67194d2d8e6ad135f15b';
 
-const web3 = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/your-infura-key'));
-
-const myAddress = '0x1234...';
-const toAddress = '0x5678...';
-const privateKey = 'abcd....';
-
-async function sendEth() {
   try {
-    const transactionCount = await web3.eth.getTransactionCount(myAddress);
-
-    const txData = {
-      nonce:    web3.utils.toHex(transactionCount),
-      gasLimit: web3.utils.toHex(25000),
-      gasPrice: web3.utils.toHex(10e9),
-      to:       toAddress,
-      from:     myAddress,
-      value:    web3.utils.toHex(web3.utils.toWei('0.01', 'ether'))
-    };
-      
-    const signedTransaction = await web3.eth.accounts.signTransaction(txData, privateKey);
-      
-    const txReceipt = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction as string);
-    
-    console.log('Transaction hash:', txReceipt.transactionHash);
-
+    await sendEth();
+    console.log('Test passed: Ethereum has been sent successfully!');
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.log('Test failed:', error);
   }
 }
 
-sendEth();
+testSendEth();
